@@ -1,0 +1,1921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Built By Studios — We Build What Your Industry Needs</title>
+    <meta name="description" content="Turn your industry expertise into real software. Describe your idea in 15 minutes, walk away with a professional concept memo.">
+
+    <!-- Fonts: Playfair Display for dramatic serifs, Syne for modern geometric sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            --color-bg: #0a0a0a;
+            --color-bg-elevated: #141414;
+            --color-bg-card: #1a1a1a;
+            --color-cream: #f5f0e8;
+            --color-cream-muted: rgba(245, 240, 232, 0.7);
+            --color-cream-faint: rgba(245, 240, 232, 0.12);
+            --color-accent: #e85d04;
+            --color-accent-glow: rgba(232, 93, 4, 0.4);
+            --color-success: #4ade80;
+
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: 'Syne', sans-serif;
+
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* ===== Reset ===== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--color-cream);
+            background: var(--color-bg);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 10000;
+        }
+
+        ::selection {
+            background: var(--color-accent);
+            color: var(--color-bg);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ===== Utilities ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 clamp(24px, 5vw, 80px);
+        }
+
+        .container--narrow {
+            max-width: 900px;
+        }
+
+        /* ===== Typography ===== */
+        .headline-xl {
+            font-family: var(--font-serif);
+            font-size: clamp(48px, 10vw, 140px);
+            font-weight: 500;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+        }
+
+        .headline-lg {
+            font-family: var(--font-serif);
+            font-size: clamp(36px, 6vw, 72px);
+            font-weight: 500;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+        }
+
+        .headline-md {
+            font-family: var(--font-serif);
+            font-size: clamp(28px, 4vw, 48px);
+            font-weight: 500;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+        }
+
+        .text-lg {
+            font-size: clamp(18px, 2vw, 22px);
+            line-height: 1.6;
+        }
+
+        .text-sm {
+            font-size: 14px;
+            letter-spacing: 0.02em;
+        }
+
+        .text-muted {
+            color: var(--color-cream-muted);
+        }
+
+        .text-accent {
+            color: var(--color-accent);
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        /* ===== Section Numbers ===== */
+        .section-number {
+            font-family: var(--font-serif);
+            font-size: clamp(120px, 15vw, 200px);
+            font-weight: 400;
+            line-height: 1;
+            color: var(--color-cream-faint);
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-family: var(--font-sans);
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 20px 40px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.5s var(--ease-out-expo);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+            color: var(--color-bg);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s var(--ease-out-expo);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px var(--color-accent-glow);
+        }
+
+        .btn-primary:hover::before {
+            transform: translateX(100%);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--color-cream);
+            border: 1px solid var(--color-cream-faint);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--color-cream);
+            background: var(--color-cream);
+            color: var(--color-bg);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--color-cream);
+            padding: 16px 24px;
+            text-transform: none;
+            letter-spacing: 0;
+            font-weight: 500;
+            border: 1px solid var(--color-cream-faint);
+            border-radius: 0;
+        }
+
+        .btn-ghost:hover {
+            color: var(--color-cream);
+            border-color: var(--color-cream-muted);
+            background: rgba(245, 240, 232, 0.05);
+        }
+
+        .btn-ghost .arrow {
+            transition: transform 0.3s var(--ease-out-expo);
+            display: inline-block;
+        }
+
+        .btn-ghost:hover .arrow {
+            transform: translateX(4px);
+        }
+
+        /* ===== Navigation ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 32px 0;
+            transition: all 0.5s var(--ease-out-expo);
+        }
+
+        .nav.scrolled {
+            padding: 20px 0;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(20px);
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: var(--font-sans);
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-mark {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-mark span {
+            color: var(--color-accent);
+        }
+
+        .logo-divider {
+            width: 24px;
+            height: 1px;
+            background: var(--color-cream-muted);
+        }
+
+        .logo-tagline {
+            color: var(--color-accent);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--color-cream-muted);
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-cream);
+        }
+
+        .nav-cta {
+            padding: 14px 28px;
+            font-size: 13px;
+        }
+
+        .nav-cta:hover {
+            color: var(--color-bg) !important;
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 0 120px;
+            position: relative;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, var(--color-accent-glow) 0%, transparent 60%);
+            opacity: 0.15;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(var(--color-cream-faint) 1px, transparent 1px),
+                linear-gradient(90deg, var(--color-cream-faint) 1px, transparent 1px);
+            background-size: 100px 100px;
+            opacity: 0.3;
+            mask-image: radial-gradient(ellipse at bottom right, black 0%, transparent 70%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeIn 1s var(--ease-out-expo) 0.2s forwards;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            width: 60px;
+            height: 1px;
+            background: var(--color-accent);
+        }
+
+        .hero-eyebrow span {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+        }
+
+        .hero-headline {
+            max-width: 1100px;
+            margin-bottom: 48px;
+            opacity: 0;
+            animation: fadeInUp 1s var(--ease-out-expo) 0.4s forwards;
+        }
+
+        .hero-headline .italic {
+            color: var(--color-accent);
+        }
+
+        .hero-sub {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: end;
+            opacity: 0;
+            animation: fadeInUp 1s var(--ease-out-expo) 0.6s forwards;
+        }
+
+        .hero-description {
+            max-width: 480px;
+        }
+
+        .hero-description p {
+            margin-bottom: 32px;
+            color: var(--color-cream-muted);
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+        }
+
+        .hero-meta {
+            text-align: right;
+        }
+
+        .hero-stat {
+            margin-bottom: 24px;
+        }
+
+        .hero-stat-number {
+            font-family: var(--font-serif);
+            font-size: 64px;
+            font-weight: 400;
+            line-height: 1;
+            color: var(--color-cream);
+        }
+
+        .hero-stat-label {
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-cream-muted);
+            margin-top: 8px;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            animation: fadeIn 1s var(--ease-out-expo) 1s forwards;
+        }
+
+        .hero-scroll span {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-cream-muted);
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--color-cream-muted), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        /* ===== Problem Section ===== */
+        .problem {
+            padding: 200px 0;
+            position: relative;
+        }
+
+        .problem-header {
+            margin-bottom: 120px;
+        }
+
+        .problem-header h2 {
+            max-width: 800px;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+            background: var(--color-cream-faint);
+        }
+
+        .problem-card {
+            background: var(--color-bg);
+            padding: 60px;
+            position: relative;
+            transition: all 0.5s var(--ease-out-expo);
+        }
+
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--color-accent);
+            transition: height 0.5s var(--ease-out-expo);
+        }
+
+        .problem-card:hover {
+            background: var(--color-bg-elevated);
+        }
+
+        .problem-card:hover::before {
+            height: 100%;
+        }
+
+        .problem-number {
+            font-family: var(--font-serif);
+            font-size: 14px;
+            color: var(--color-accent);
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        .problem-card p {
+            font-size: 20px;
+            line-height: 1.5;
+            color: var(--color-cream);
+        }
+
+        /* ===== How It Works ===== */
+        .how-it-works {
+            padding: 200px 0;
+            background: var(--color-bg-elevated);
+            position: relative;
+        }
+
+        .how-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            margin-bottom: 120px;
+            align-items: end;
+        }
+
+        .how-header p {
+            color: var(--color-cream-muted);
+            max-width: 400px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            position: relative;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 80px;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--color-cream-faint), var(--color-cream-faint), transparent);
+        }
+
+        .step {
+            padding: 0 32px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-icon {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 40px;
+            background: var(--color-bg);
+            border: 1px solid var(--color-cream-faint);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.5s var(--ease-out-expo);
+        }
+
+        .step:hover .step-icon {
+            border-color: var(--color-accent);
+            box-shadow: 0 0 60px var(--color-accent-glow);
+        }
+
+        .step-icon span {
+            font-family: var(--font-serif);
+            font-size: 48px;
+            font-weight: 400;
+            line-height: 1;
+            color: var(--color-cream);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Highlighted first step with orange background */
+        .step-icon--highlight {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        .step-icon--highlight span {
+            color: var(--color-bg);
+        }
+
+        .step-time {
+            font-family: var(--font-sans);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            opacity: 0.9;
+        }
+
+        .step-time-value {
+            font-family: var(--font-serif);
+            font-size: 56px;
+            font-weight: 400;
+            line-height: 1;
+        }
+
+        .step h3 {
+            font-family: var(--font-sans);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .step p {
+            font-size: 15px;
+            color: var(--color-cream-muted);
+            line-height: 1.6;
+        }
+
+        .how-cta {
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        /* ===== Verticals ===== */
+        .verticals {
+            padding: 200px 0;
+            position: relative;
+        }
+
+        .verticals-header {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .verticals-header p {
+            color: var(--color-cream-muted);
+            margin-top: 24px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .vertical-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .vertical-card {
+            position: relative;
+            padding: 80px 60px;
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-cream-faint);
+            overflow: hidden;
+            transition: all 0.6s var(--ease-out-expo);
+            display: block;
+        }
+
+        .vertical-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--color-accent-glow), transparent);
+            opacity: 0;
+            transition: opacity 0.6s var(--ease-out-expo);
+        }
+
+        .vertical-card:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-8px);
+        }
+
+        .vertical-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .vertical-card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .vertical-icon {
+            font-size: 48px;
+            margin-bottom: 32px;
+            display: block;
+        }
+
+        .vertical-card h3 {
+            font-family: var(--font-serif);
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .vertical-card p {
+            color: var(--color-cream-muted);
+            margin-bottom: 32px;
+            max-width: 320px;
+        }
+
+        .vertical-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+        }
+
+        .vertical-link .arrow {
+            transition: transform 0.3s var(--ease-out-expo);
+        }
+
+        .vertical-card:hover .vertical-link .arrow {
+            transform: translateX(8px);
+        }
+
+        .vertical-other {
+            grid-column: span 2;
+            padding: 48px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: transparent;
+            border: 1px dashed var(--color-cream-faint);
+        }
+
+        .vertical-other:hover {
+            border-style: solid;
+            background: var(--color-bg-card);
+        }
+
+        .vertical-other h4 {
+            font-family: var(--font-sans);
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .vertical-other p {
+            color: var(--color-cream-muted);
+            margin-top: 8px;
+        }
+
+        /* ===== What We Build ===== */
+        .what-we-build {
+            padding: 200px 0;
+            background: var(--color-cream);
+            color: var(--color-bg);
+            position: relative;
+        }
+
+        .what-we-build .section-number {
+            color: rgba(10, 10, 10, 0.06);
+        }
+
+        .build-header {
+            margin-bottom: 100px;
+        }
+
+        .build-header h2 {
+            color: var(--color-bg);
+        }
+
+        .build-header p {
+            color: rgba(10, 10, 10, 0.6);
+            margin-top: 24px;
+            max-width: 500px;
+        }
+
+        .build-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0;
+            border: 1px solid rgba(10, 10, 10, 0.1);
+        }
+
+        .build-item {
+            padding: 48px 32px;
+            border-right: 1px solid rgba(10, 10, 10, 0.1);
+            text-align: center;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .build-item:last-child {
+            border-right: none;
+        }
+
+        .build-item:hover {
+            background: rgba(10, 10, 10, 0.03);
+        }
+
+        .build-icon {
+            font-size: 36px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .build-item h4 {
+            font-family: var(--font-sans);
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--color-bg);
+            margin-bottom: 12px;
+        }
+
+        .build-item p {
+            font-size: 14px;
+            color: rgba(10, 10, 10, 0.6);
+            line-height: 1.5;
+        }
+
+        /* ===== Social Proof ===== */
+        .social-proof {
+            padding: 200px 0;
+            position: relative;
+        }
+
+        .proof-layout {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 120px;
+        }
+
+        .proof-stats {
+            position: sticky;
+            top: 150px;
+            height: fit-content;
+        }
+
+        .stat {
+            padding: 48px 0;
+            border-bottom: 1px solid var(--color-cream-faint);
+        }
+
+        .stat:first-child {
+            padding-top: 0;
+        }
+
+        .stat-value {
+            font-family: var(--font-serif);
+            font-size: 80px;
+            font-weight: 400;
+            line-height: 1;
+            color: var(--color-accent);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-cream-muted);
+            margin-top: 12px;
+        }
+
+        .proof-content {
+            padding-top: 48px;
+        }
+
+        .founder-quote {
+            font-family: var(--font-serif);
+            font-size: clamp(28px, 3vw, 36px);
+            font-weight: 400;
+            line-height: 1.4;
+            font-style: italic;
+            margin-bottom: 48px;
+        }
+
+        .founder-quote::before {
+            content: '"';
+            color: var(--color-accent);
+        }
+
+        .founder-info {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .founder-photo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--color-accent), #ff8a4c);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 28px;
+            font-weight: 500;
+            color: var(--color-bg);
+        }
+
+        .founder-name {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .founder-title {
+            color: var(--color-cream-muted);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        /* ===== Trust ===== */
+        .trust {
+            padding: 200px 0;
+            background: var(--color-bg-elevated);
+        }
+
+        .trust-header {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0;
+        }
+
+        .trust-item {
+            padding: 60px 40px;
+            text-align: center;
+            border-right: 1px solid var(--color-cream-faint);
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .trust-item:last-child {
+            border-right: none;
+        }
+
+        .trust-item:hover {
+            background: var(--color-bg);
+        }
+
+        .trust-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            border: 1px solid var(--color-success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-success);
+        }
+
+        .trust-item h4 {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .trust-item p {
+            font-size: 14px;
+            color: var(--color-cream-muted);
+            line-height: 1.5;
+        }
+
+        /* ===== FAQ ===== */
+        .faq {
+            padding: 200px 0;
+        }
+
+        .faq-header {
+            margin-bottom: 80px;
+        }
+
+        .faq-list {
+            max-width: 900px;
+        }
+
+        .faq-item {
+            border-top: 1px solid var(--color-cream-faint);
+        }
+
+        .faq-item:last-child {
+            border-bottom: 1px solid var(--color-cream-faint);
+        }
+
+        .faq-question {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            padding: 40px 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .faq-question h4 {
+            font-family: var(--font-serif);
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--color-cream);
+            transition: color 0.3s ease;
+        }
+
+        .faq-question:hover h4 {
+            color: var(--color-accent);
+        }
+
+        .faq-toggle {
+            width: 48px;
+            height: 48px;
+            border: 1px solid var(--color-cream-faint);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .faq-toggle svg {
+            width: 16px;
+            height: 16px;
+            color: var(--color-cream);
+            transition: transform 0.4s var(--ease-out-expo);
+        }
+
+        .faq-item.active .faq-toggle {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        .faq-item.active .faq-toggle svg {
+            transform: rotate(45deg);
+            color: var(--color-bg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s var(--ease-out-expo);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-answer p {
+            padding-bottom: 40px;
+            color: var(--color-cream-muted);
+            max-width: 700px;
+            line-height: 1.7;
+        }
+
+        /* ===== Final CTA ===== */
+        .final-cta {
+            padding: 200px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 60%);
+            opacity: 0.2;
+        }
+
+        .final-cta .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .final-cta h2 {
+            margin-bottom: 24px;
+        }
+
+        .final-cta > .container > p {
+            color: var(--color-cream-muted);
+            margin-bottom: 48px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .final-cta .btn-primary {
+            font-size: 16px;
+            padding: 24px 56px;
+        }
+
+        .final-urgency {
+            margin-top: 32px;
+            font-size: 14px;
+            color: var(--color-cream-muted);
+        }
+
+        .email-section {
+            margin-top: 100px;
+            padding-top: 100px;
+            border-top: 1px solid var(--color-cream-faint);
+        }
+
+        .email-section p {
+            color: var(--color-cream-muted);
+            margin-bottom: 24px;
+        }
+
+        .email-form {
+            display: flex;
+            gap: 0;
+            max-width: 500px;
+            margin: 0 auto;
+            border: 1px solid var(--color-cream-faint);
+        }
+
+        .email-form input {
+            flex: 1;
+            padding: 20px 24px;
+            background: transparent;
+            border: none;
+            color: var(--color-cream);
+            font-family: var(--font-sans);
+            font-size: 16px;
+        }
+
+        .email-form input::placeholder {
+            color: var(--color-cream-muted);
+        }
+
+        .email-form input:focus {
+            outline: none;
+        }
+
+        .email-form button {
+            padding: 20px 32px;
+            background: var(--color-cream);
+            color: var(--color-bg);
+            border: none;
+            font-family: var(--font-sans);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .email-form button:hover {
+            background: var(--color-accent);
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--color-cream-faint);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 80px;
+            margin-bottom: 80px;
+        }
+
+        .footer-brand p {
+            color: var(--color-cream-muted);
+            font-size: 15px;
+            max-width: 280px;
+            margin-top: 24px;
+        }
+
+        .footer-links h5 {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-cream-muted);
+            margin-bottom: 24px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 16px;
+        }
+
+        .footer-links a {
+            font-size: 15px;
+            color: var(--color-cream);
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-accent);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--color-cream-faint);
+            font-size: 13px;
+            color: var(--color-cream-muted);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-legal a {
+            color: var(--color-cream-muted);
+        }
+
+        .footer-legal a:hover {
+            color: var(--color-cream);
+        }
+
+        /* ===== Animations ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.15; transform: scale(1); }
+            50% { opacity: 0.25; transform: scale(1.1); }
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 1200px) {
+            .hero-sub {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .hero-meta {
+                text-align: left;
+                display: flex;
+                gap: 48px;
+            }
+
+            .how-header {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 48px;
+            }
+
+            .steps::before {
+                display: none;
+            }
+
+            .build-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .build-item:nth-child(3) {
+                border-right: none;
+            }
+
+            .build-item:nth-child(4),
+            .build-item:nth-child(5) {
+                border-top: 1px solid rgba(10, 10, 10, 0.1);
+            }
+
+            .trust-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .trust-item:nth-child(3) {
+                border-right: none;
+            }
+
+            .trust-item:nth-child(4),
+            .trust-item:nth-child(5) {
+                border-top: 1px solid var(--color-cream-faint);
+            }
+
+            .proof-layout {
+                grid-template-columns: 1fr;
+                gap: 80px;
+            }
+
+            .proof-stats {
+                position: static;
+                display: flex;
+                gap: 48px;
+            }
+
+            .stat {
+                border-bottom: none;
+                padding: 0;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding-bottom: 80px;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+            }
+
+            .hero-meta {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .hero-scroll {
+                display: none;
+            }
+
+            .problem, .how-it-works, .verticals, .what-we-build, .social-proof, .trust, .faq, .final-cta {
+                padding: 120px 0;
+            }
+
+            .problem-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .vertical-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .vertical-other {
+                grid-column: span 1;
+                flex-direction: column;
+                text-align: center;
+                gap: 24px;
+            }
+
+            .build-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .build-item {
+                border-right: none;
+                border-bottom: 1px solid rgba(10, 10, 10, 0.1);
+            }
+
+            .build-item:last-child {
+                border-bottom: none;
+            }
+
+            .proof-stats {
+                flex-direction: column;
+            }
+
+            .trust-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-item {
+                border-right: none;
+                border-bottom: 1px solid var(--color-cream-faint);
+            }
+
+            .trust-item:last-child {
+                border-bottom: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+
+            .email-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="container nav-content">
+            <a href="#" class="logo">
+                <span class="logo-mark">Built<span>.</span>By</span>
+                <span class="logo-divider"></span>
+                <span class="logo-tagline">Studios</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#verticals">Verticals</a></li>
+                <li><a href="#how-it-works">Process</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#" class="btn btn-outline nav-cta">Start Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="hero-grid"></div>
+        </div>
+        <div class="container hero-content">
+            <h1 class="headline-xl hero-headline">
+                Your <span class="italic">expertise</span>,<br>
+                built into software.
+            </h1>
+            <div class="hero-sub">
+                <div class="hero-description">
+                    <p class="text-lg">You know exactly what tools your industry needs. Describe your idea in 15 minutes and walk away with a professional concept memo—yours to keep.</p>
+                    <div class="hero-ctas">
+                        <a href="#" class="btn btn-primary">Get Your Concept Memo</a>
+                        <a href="#verticals" class="btn btn-ghost">
+                            Find your industry
+                            <span class="arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-meta">
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">47</div>
+                        <div class="hero-stat-label">Ideas This Month</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">3–5</div>
+                        <div class="hero-stat-label">Built Per Quarter</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Problem -->
+    <section class="problem">
+        <div class="container">
+            <div class="problem-header">
+                <h2 class="headline-lg">You know what's missing.<br>We know how to build it.</h2>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <span class="problem-number">01</span>
+                    <p>You've searched for apps that solve your specific problem—and they don't exist.</p>
+                </div>
+                <div class="problem-card">
+                    <span class="problem-number">02</span>
+                    <p>Generic tools don't understand your workflow, your terminology, or your constraints.</p>
+                </div>
+                <div class="problem-card">
+                    <span class="problem-number">03</span>
+                    <p>You have a dozen ideas that would help, but no way to build them yourself.</p>
+                </div>
+                <div class="problem-card">
+                    <span class="problem-number">04</span>
+                    <p>Tech companies build for the masses. You need something built for you.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="how-header">
+                <h2 class="headline-lg">Four steps.<br>Zero complexity.</h2>
+                <p class="text-lg">From idea to app, we handle the building. You bring the expertise.</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon step-icon--highlight">
+                        <span>
+                            <span class="step-time-value">~15</span>
+                            <span class="step-time">min</span>
+                        </span>
+                    </div>
+                    <h3>Have a Conversation</h3>
+                    <p>Chat with our AI. It asks smart questions to understand your idea fully—like explaining to a colleague who really listens.</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <span>02</span>
+                    </div>
+                    <h3>Get Your Memo</h3>
+                    <p>Receive a professional document summarizing your idea—problem, solution, target users. It's yours to keep, regardless.</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <span>03</span>
+                    </div>
+                    <h3>Honest Evaluation</h3>
+                    <p>Our AI vetting engine evaluates viability and feasibility. We're straightforward about what can realistically be built.</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <span>04</span>
+                    </div>
+                    <h3>Watch It Get Built</h3>
+                    <p>The best ideas get developed into real apps. You get early access and revenue share.</p>
+                </div>
+            </div>
+            <div class="how-cta">
+                <a href="#" class="btn btn-primary">Get Your Concept Memo →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Verticals -->
+    <section class="verticals" id="verticals">
+        <div class="container">
+            <div class="verticals-header">
+                <h2 class="headline-lg">Choose your industry</h2>
+                <p>Each vertical has specialized AI trained on industry-specific problems.</p>
+            </div>
+            <div class="vertical-cards">
+                <a href="#" class="vertical-card">
+                    <div class="vertical-card-content">
+                        <span class="vertical-icon">🎓</span>
+                        <h3>Built By School Leaders</h3>
+                        <p>Apps built by educators, for educators. Solve the problems that EdTech ignores.</p>
+                        <span class="vertical-link">
+                            Explore
+                            <span class="arrow">→</span>
+                        </span>
+                    </div>
+                </a>
+                <a href="#" class="vertical-card">
+                    <div class="vertical-card-content">
+                        <span class="vertical-icon">🔧</span>
+                        <h3>Built By Trade Schools</h3>
+                        <p>Tools designed by those who know the work. Practical apps for vocational education.</p>
+                        <span class="vertical-link">
+                            Explore
+                            <span class="arrow">→</span>
+                        </span>
+                    </div>
+                </a>
+                <a href="#" class="vertical-card vertical-other">
+                    <div>
+                        <h4>Have a Different Idea?</h4>
+                        <p>Working in another industry? We're always exploring new verticals.</p>
+                    </div>
+                    <span class="vertical-link">
+                        Tell Us
+                        <span class="arrow">→</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- What We Build -->
+    <section class="what-we-build">
+        <div class="container">
+            <div class="build-header">
+                <h2 class="headline-lg">Small tools.<br>Big problems solved.</h2>
+                <p>We specialize in focused micro-SaaS applications—not bloated platforms.</p>
+            </div>
+            <div class="build-grid">
+                <div class="build-item">
+                    <span class="build-icon">📊</span>
+                    <h4>Dashboards</h4>
+                    <p>See what matters at a glance—stop digging through spreadsheets</p>
+                </div>
+                <div class="build-item">
+                    <span class="build-icon">🔄</span>
+                    <h4>Data Translators</h4>
+                    <p>Stop copying the same data into three different systems</p>
+                </div>
+                <div class="build-item">
+                    <span class="build-icon">⚡</span>
+                    <h4>Automators</h4>
+                    <p>Turn your 10-step process into a single click</p>
+                </div>
+                <div class="build-item">
+                    <span class="build-icon">📈</span>
+                    <h4>Tracking</h4>
+                    <p>Know what's happening without chasing updates</p>
+                </div>
+                <div class="build-item">
+                    <span class="build-icon">✨</span>
+                    <h4>Generators</h4>
+                    <p>Create in 30 seconds what used to take 30 minutes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof">
+        <div class="container">
+            <div class="proof-layout">
+                <div class="proof-stats">
+                    <div class="stat">
+                        <div class="stat-value">50+</div>
+                        <div class="stat-label">Products Shipped</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">2</div>
+                        <div class="stat-label">Active Verticals</div>
+                    </div>
+                </div>
+                <div class="proof-content">
+                    <p class="founder-quote">We built this because we kept meeting professionals who knew exactly what tools their industry needed—but had no way to build them. Now they do.</p>
+                    <div class="founder-info">
+                        <div class="founder-photo">SD</div>
+                        <div>
+                            <div class="founder-name">Scott DeSimone</div>
+                            <div class="founder-title">Founder, Built By Studios</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust -->
+    <section class="trust">
+        <div class="container">
+            <div class="trust-header">
+                <h2 class="headline-lg">Built on trust</h2>
+            </div>
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                    </div>
+                    <h4>Ideas Stay Yours</h4>
+                    <p>Download your memo before submitting anything.</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h4>Transparent Process</h4>
+                    <p>Based on proven product studio frameworks.</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h4>Aligned Incentives</h4>
+                    <p>We only make money when your idea succeeds.</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                        </svg>
+                    </div>
+                    <h4>Built by Builders</h4>
+                    <p>50+ products shipped across SaaS and mobile.</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h4>Data Protected</h4>
+                    <p>Never shared without explicit permission.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="faq-header">
+                <h2 class="headline-lg">Questions</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item active">
+                    <button class="faq-question">
+                        <h4>What happens to my idea?</h4>
+                        <span class="faq-toggle">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>You receive a concept memo immediately—it's yours regardless of what happens next. We only review ideas you explicitly submit. Your submission is confidential and never shared publicly.</p>
+                    </div>
+                </div>
+                <div class="faq-item active">
+                    <button class="faq-question">
+                        <h4>Does it cost anything?</h4>
+                        <span class="faq-toggle">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Free to submit. We invest our resources in building the products. You get early access and revenue share if your idea is selected.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <h4>What makes an idea 'good enough'?</h4>
+                        <span class="faq-toggle">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We look for ideas that solve real daily pain, can be built as focused tools (not platforms), require low ongoing support, and have clear willingness to pay.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <h4>How long does evaluation take?</h4>
+                        <span class="faq-toggle">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>You'll receive your concept memo immediately. If you submit for review, evaluation typically takes 5-7 business days.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <h4>I'm not technical—is that okay?</h4>
+                        <span class="faq-toggle">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Perfect. We want your expertise, not your coding skills. The AI interview is conversational—just talk about the problem you want solved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2 class="headline-lg">Ready to build<br>something real?</h2>
+            <p class="text-lg">15 minutes. One conversation. Walk away with a professional concept memo—whether we build it or not.</p>
+            <a href="#" class="btn btn-primary">Get Your Concept Memo →</a>
+            <p class="final-urgency">We select 3–5 ideas per quarter. Currently building for Education and Trade Schools.</p>
+
+            <div class="email-section">
+                <p>Not ready yet? Get notified when we launch new verticals.</p>
+                <form class="email-form">
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit">Notify Me</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="#" class="logo">Built<span>.</span>By</a>
+                    <p>Turning industry expertise into real software products. Your ideas, built by builders.</p>
+                </div>
+                <div class="footer-links">
+                    <h5>Verticals</h5>
+                    <ul>
+                        <li><a href="#">School Leaders</a></li>
+                        <li><a href="#">Trade Schools</a></li>
+                        <li><a href="#">Submit New</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h5>Resources</h5>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Sample Memo</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Built By Studios LLC</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation scroll effect
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 100);
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const fadeElements = document.querySelectorAll('.problem-card, .step, .vertical-card, .build-item, .trust-item');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '0';
+                    entry.target.style.transform = 'translateY(30px)';
+                    entry.target.style.transition = `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s`;
+
+                    requestAnimationFrame(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    });
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
