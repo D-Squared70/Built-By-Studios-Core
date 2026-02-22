@@ -586,7 +586,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 80px;
-            margin-bottom: 120px;
+            margin-bottom: 80px;
             align-items: end;
         }
 
@@ -596,8 +596,8 @@
         }
 
         .steps {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            display: flex;
+            flex-direction: column;
             gap: 0;
             position: relative;
         }
@@ -605,23 +605,30 @@
         .steps::before {
             content: '';
             position: absolute;
-            top: 80px;
-            left: 5%;
-            right: 5%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--color-cream-faint), var(--color-cream-faint), transparent);
+            top: 0;
+            bottom: 0;
+            left: 44px;
+            width: 1px;
+            background: linear-gradient(180deg, transparent, var(--color-cream-faint) 10%, var(--color-cream-faint) 90%, transparent);
         }
 
         .step {
-            padding: 0 24px;
-            text-align: center;
+            display: grid;
+            grid-template-columns: 88px 1fr;
+            gap: 40px;
+            padding: 40px 0;
+            text-align: left;
             position: relative;
+            border-bottom: 1px solid var(--color-cream-faint);
+        }
+
+        .step:last-child {
+            border-bottom: none;
         }
 
         .step-icon {
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 40px;
+            width: 88px;
+            height: 88px;
             background: var(--color-bg);
             border: 1px solid var(--color-cream-faint);
             border-radius: 50%;
@@ -629,7 +636,9 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            z-index: 1;
             transition: all 0.5s var(--ease-out-expo);
+            flex-shrink: 0;
         }
 
         .step:hover .step-icon {
@@ -639,7 +648,7 @@
 
         .step-icon span {
             font-family: var(--font-display);
-            font-size: 36px;
+            font-size: 28px;
             font-weight: 700;
             line-height: 1;
             color: var(--color-cream);
@@ -654,17 +663,22 @@
             color: var(--color-bg);
         }
 
+        .step-body {
+            padding-top: 12px;
+        }
+
         .step h3 {
             font-family: var(--font-body);
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .step p {
-            font-size: 14px;
+            font-size: 16px;
             color: var(--color-cream-muted);
-            line-height: 1.6;
+            line-height: 1.7;
+            max-width: 720px;
         }
 
         /* ===== Who It's For ===== */
@@ -1096,13 +1110,8 @@
                 gap: 24px;
             }
 
-            .steps {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 48px;
-            }
-
             .steps::before {
-                display: none;
+                left: 32px;
             }
 
             .pillars {
@@ -1148,8 +1157,22 @@
                 padding: 80px 0;
             }
 
-            .steps {
-                grid-template-columns: 1fr;
+            .step {
+                grid-template-columns: 64px 1fr;
+                gap: 24px;
+            }
+
+            .step-icon {
+                width: 64px;
+                height: 64px;
+            }
+
+            .step-icon span {
+                font-size: 22px;
+            }
+
+            .steps::before {
+                left: 32px;
             }
 
             .featured-cards {
@@ -1301,36 +1324,46 @@
                     <div class="step-icon step-icon--highlight">
                         <span>01</span>
                     </div>
-                    <h3>Bring the Problem</h3>
-                    <p>Industry experts and practitioners bring us their insights on the real challenges they see every day. We help unpack the problem, clarify why it matters, and sharpen the solution.</p>
+                    <div class="step-body">
+                        <h3>Bring the Problem</h3>
+                        <p>Industry experts and practitioners bring us their insights on the real challenges they see every day. We help unpack the problem, clarify why it matters, and sharpen the solution.</p>
+                    </div>
                 </div>
                 <div class="step">
                     <div class="step-icon">
                         <span>02</span>
                     </div>
-                    <h3>Refine and Validate</h3>
-                    <p>We pressure-test the concept against real-world constraints, existing solutions, and market viability. If it's worth building, we build a blueprint and start building out something viable.</p>
+                    <div class="step-body">
+                        <h3>Refine and Validate</h3>
+                        <p>We pressure-test the concept against real-world constraints, existing solutions, and market viability. If it's worth building, we build a blueprint and start building out something viable.</p>
+                    </div>
                 </div>
                 <div class="step">
                     <div class="step-icon">
                         <span>03</span>
                     </div>
-                    <h3>Build Together</h3>
-                    <p>If the domain expert chooses to move forward, a streamlined MVP is developed with their input. The expert stays closely involved with the work, while the team manages the engineering, infrastructure, and execution.</p>
+                    <div class="step-body">
+                        <h3>Build Together</h3>
+                        <p>If the domain expert chooses to move forward, a streamlined MVP is developed with their input. The expert stays closely involved with the work, while the team manages the engineering, infrastructure, and execution.</p>
+                    </div>
                 </div>
                 <div class="step">
                     <div class="step-icon">
                         <span>04</span>
                     </div>
-                    <h3>Prove It in the Market</h3>
-                    <p>We test for usability, adoption, and willingness to pay. Adoption matters more than downloads and demos.</p>
+                    <div class="step-body">
+                        <h3>Prove It in the Market</h3>
+                        <p>We test for usability, adoption, and willingness to pay. Adoption matters more than downloads and demos.</p>
+                    </div>
                 </div>
                 <div class="step">
                     <div class="step-icon">
                         <span>05</span>
                     </div>
-                    <h3>Share the Upside</h3>
-                    <p>When a product gains traction, we scale it responsibly—and share revenue with the practitioner whose expertise made it possible.</p>
+                    <div class="step-body">
+                        <h3>Share the Upside</h3>
+                        <p>When a product gains traction, we scale it responsibly—and share revenue with the practitioner whose expertise made it possible.</p>
+                    </div>
                 </div>
             </div>
         </div>
